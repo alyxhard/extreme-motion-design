@@ -1,0 +1,149 @@
+PROMPT DO VÍDEO DE APRESENTAÇÃO (LINKEDIN)
+Extreme Motion Design, 90 s, 1920x1080, 30 fps
+
+Este é o prompt do vídeo de apresentação da skill, reescrito de forma objetiva
+a partir do que o vídeo final mostra. O pedido original foi um parágrafo só; os
+ajustes feitos depois (voz, tom da narração, cena do prompt, estabilidade do
+conteúdo na tela do celular) já estão incorporados aqui.
+
+
+PROMPT
+
+Use a skill extreme-motion-design para criar o vídeo de apresentação da própria
+skill.
+
+Objetivo: mostrar em até 1 minuto e 30 segundos o repertório da skill, técnica
+por técnica. Explore a skill a fundo antes (roteador, referências, template e
+scripts) e monte o roteiro para eu confirmar antes de criar qualquer coisa.
+
+Formato: 16:9, 1920x1080, 30 fps, 90 s.
+
+Narração: ElevenLabs, pt-BR, voz RGymW84CSmfVugnA5tvA, modelo eleven_v3, tom
+animado em ritmo normal de fala. Animada não é rápida: não acelere a voz.
+
+Áudio: trilha licenciada com crédito registrado, SFX caindo no frame dos
+impactos, ducking da trilha sob a voz. Tudo sai da mesma partitura (cortes,
+palavras, batidas e efeitos no mesmo relógio).
+
+Estrutura: onze cenas, cada uma com direção de arte fechada e acento de cor
+próprio. A transição entre cenas já é uma técnica da lista. Um rótulo discreto
+no canto nomeia a técnica em uso, para o vídeo funcionar sem som.
+
+O vídeo começa com "Apresentando: Extreme Motion Design" e, antes da cena
+final, declara que foi feito inteiro com um único prompt e com a skill.
+
+Na cena de imagem real, o conteúdo encaixado na tela do celular precisa ficar
+estável e sem vazar nas bordas: rastreie a borda real da tela em cada frame e
+devolva notch e dedos por cima do conteúdo.
+
+
+ROTEIRO
+
+1. Abertura, 0:00 a 0:05
+Narração: "Apresentando: Extreme Motion Design."
+Tela: o título sobe por máscara, letra a letra, com o tracking fechando. Uma
+faixa de luz atravessa o nome. Um ponto nasce, pulsa e viaja em arco até a
+posição de onde a cena seguinte abre.
+Técnicas: baseline reveal, tracking animado, varredura de luz.
+Saída: íris de papel que abre a partir do ponto.
+
+2. Ponto e curva, 0:05 a 0:13
+Narração: "Tudo começa em um ponto. E numa curva."
+Tela: papel claro e um ponto. Ele cai, achata no contato, agacha, salta e
+assenta, enquanto a curva de easing é desenhada ao lado como gráfico e um
+marcador a percorre em tempo linear.
+Técnicas: keyframing, squash e stretch, antecipação, smear, overshoot, trim
+path, easing, espaçamento.
+Saída: corte casado no ponto.
+
+3. Forma e palavra, 0:13 a 0:22
+Narração: "A curva vira forma. A forma vira outra. E a palavra entra no tempo
+da voz."
+Tela: um traço se fecha em volta do ponto, que cresce e vira círculo, estrela
+e blob. Um repeater abre em pétalas que seguem a líder com atraso. As palavras
+da frase entram no instante em que são ditas.
+Técnicas: trim path, morphing, tipografia cinética, repeater, follow-through.
+Saída: whip pan com o corte no pico.
+
+4. Câmera, 0:22 a 0:30
+Narração: "A câmera empurra, gira e atravessa."
+Tela: cidade noturna em camadas (céu, lua, serra, cidade ao longe, plano
+médio, viaduto com trem e torre, terraço em primeiro plano). A câmera empurra,
+troca o foco, faz pan em arco e dolly zoom, o tempo do mundo acelera e
+desacelera, e ela atravessa um pórtico.
+Técnicas: parallax, push-in, rack focus, pan em arco, dolly zoom, speed ramp,
+whip pan.
+Saída: corte seco depois do whip da própria câmera.
+
+5. Estilos, 0:30 a 0:40
+Narração: "Menos. Ou muito mais. Até vidro."
+Tela: um quadro quase vazio. No "muito mais", explode em pôster maximalista
+com cores chapadas, campo de partículas e ecos. Uma íris fecha em um painel de
+vidro com reflexo, cursor, toggle, contador e um gráfico com dados reais do
+próprio vídeo.
+Técnicas: minimalismo, maximalismo, flow field, echo, íris, glassmorphism,
+microinteração, contador, dados.
+Saída: transição em blocos de pixel.
+
+6. Quadro a quadro, 0:40 a 0:51
+Narração: "Pixel por pixel. Quadro a quadro. Com osso, articulação e fala."
+Tela: um sprite em pixel art corre em twos, vira desenho à mão com o traço
+fervendo e depois stop motion em degraus de três. Um personagem com rig fala a
+própria narração, com a carta de bocas acendendo junto.
+Técnicas: pixel art, sprite em twos, cel animation, line boil, smear frame,
+squash e stretch, stop motion, rig, IK de dois ossos, FABRIK, lip sync.
+Saída: corte.
+
+7. Três dimensões, 0:51 a 1:00
+Narração: "Em três dimensões."
+Tela: o plano vira sólido. Cidade isométrica em toon com rótulos colados no
+chão e na parede, barras de dados em 3D, câmera em órbita e em grua. O foco
+passa da cidade para um robô renderizado no Blender, com bloom nas altas
+luzes.
+Técnicas: do plano ao sólido, luz e sombra, câmera em órbita, toon shading,
+isométrico, dados em 3D, grua, profundidade de campo.
+Saída: whip pan.
+
+8. Imagem real, 1:00 a 1:08
+Narração: "E sobre imagem real: rastreia, recorta e encaixa."
+Tela: filmagem de uma pessoa segurando um celular. Uma mira e um rótulo ficam
+presos a um ponto do aparelho, uma palavra passa atrás da pessoa e o conteúdo
+do vídeo é encaixado na tela do celular em perspectiva, com notch e dedos por
+cima.
+Técnicas: filmagem, tracking, rotoscopia, match moving, corner pin, chroma
+key.
+Saída: transição líquida.
+
+9. Som, 1:08 a 1:18
+Narração: "Trilha, efeito e voz no mesmo relógio."
+Tela: a timeline real do vídeo em três pistas: batidas da trilha, eventos de
+SFX e a forma de onda da narração com o tempo de cada palavra. Um marcador
+único atravessa as três. As pistas se fundem em uma linha, que se enrola em
+anel e fecha em loop perfeito.
+Técnicas: batidas, SFX no frame, tempo por palavra, partitura, transição
+líquida, seamless loop, match cut.
+Saída: corte casado no anel.
+
+10. Um prompt, 1:18 a 1:23
+Narração: "E este vídeo inteiro foi feito com um único prompt e com esta
+skill."
+Tela: o anel se fecha em um cursor verde, que digita o pedido que abriu o
+vídeo: "Vamos fazer um vídeo de apresentação da skill extreme-motion-design."
+Três contadores sobem: 1 prompt, 11 cenas, 2700 frames.
+Técnicas: corte casado, texto digitado, contador.
+Saída: corte casado no cursor.
+
+11. Fecho, 1:23 a 1:30
+Narração: "Extreme Motion Design. Do código ao vídeo."
+Tela: o cursor verde vira o ponto laranja da abertura. O nome monta em três
+linhas, no tempo da voz, e a faixa de luz atravessa o texto. Entram a
+assinatura "Do código ao vídeo." e o endereço
+github.com/dev-isaacmello/extreme-motion-design.
+Técnicas: match cut, baseline reveal, tracking animado, varredura de luz.
+
+
+CRÉDITO DA TRILHA
+
+"Voxel Revolution", Kevin MacLeod (incompetech.com). Licença Creative Commons
+Atribuição 4.0: http://creativecommons.org/licenses/by/4.0/
+Modificações: cortada, com fades, ducking e normalização de loudness.
