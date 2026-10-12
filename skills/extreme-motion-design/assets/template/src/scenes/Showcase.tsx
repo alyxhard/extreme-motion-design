@@ -144,7 +144,13 @@ export const Showcase: React.FC = () => {
 	const f = (s: number) => Math.round(s * fps);
 	const hero = frame < f(s2.start);
 	return (
-		<AbsoluteFill style={{background: C.bg, fontFamily: FONT}}>
+		<AbsoluteFill
+			style={{
+				background: C.bg,
+				fontFamily: FONT,
+				translate: '0px 23.3px'
+			}}
+		>
 			<Sequence from={f(s1.start)} durationInFrames={f(s1.end - s1.start)}>
 				<Kinetic len={f(s1.end - s1.start)} />
 			</Sequence>

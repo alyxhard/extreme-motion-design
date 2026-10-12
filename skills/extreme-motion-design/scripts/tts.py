@@ -21,11 +21,14 @@ from __future__ import annotations
 
 import argparse
 import base64
+import io
 import json
 import os
 import pathlib
 import re
+import subprocess
 import sys
+import time
 import urllib.request
 from xml.sax.saxutils import escape
 
@@ -168,6 +171,64 @@ def tts_kokoro(text, voice, lang, speed):
     return samples, sr, approx_words(text, len(samples) / sr), True
 
 
+def tts_dirce(text, voice, lang, speed, base_url=None):
+    import requests
+
+    url = base_url or os.environ.get("DIRCE_TTS_URL", "http://127.0.0.1:8880").rstrip("/")
+    lang_code = "p" if lang.lower().startswith("pt") else "a"
+    chosen_voice = voice or ("pf_dora" if lang_code == "p" else "af_heart")
+
+    # Verifica se o servidor local do Dirce_Book_Server já está ativo
+    is_up = False
+    try:
+        r_health = requests.get(f"{url}/health", timeout=1.5)
+        is_up = r_health.status_code == 200
+    except Exception:
+        is_up = False
+
+    if not is_up:
+        # Se não estiver rodando, tenta iniciar via venv existente
+        server_py = pathlib.Path(r"E:\DEV\Dirce_Book_Server\fastapi_tts\main.py")
+        venv_py = pathlib.Path(r"E:\DEV\Dirce_Book_Server\fastapi_tts\venv\Scripts\python.exe")
+        if server_py.exists() and venv_py.exists():
+            print("Iniciando motor Kokoro de Dirce_Book_Server (porta 8880)...", file=sys.stderr)
+            subprocess.Popen([str(venv_py), str(server_py)], cwd=str(server_py.parent))
+            for _ in range(12):
+                time.sleep(1)
+                try:
+                    if requests.get(f"{url}/health", timeout=1).status_code == 200:
+                        is_up = True
+                        break
+                except Exception:
+                    pass
+
+    if not is_up:
+        raise RuntimeError(f"Servidor TTS do Dirce_Book_Server ({url}) não está respondendo. Inicie-o com 'npm run tts' na pasta E:\\DEV\\Dirce_Book_Server.")
+
+    body = {
+        "text": text,
+        "voice": chosen_voice,
+        "speed": speed,
+        "lang_code": lang_code,
+        "with_timestamps": True,
+        "bitrate": "192k",
+    }
+    r = requests.post(f"{url}/generate", json=body, timeout=120)
+    r.raise_for_status()
+    data = r.json()
+    audio_bytes = base64.b64decode(data["audio"])
+    samples, sr = sf.read(io.BytesIO(audio_bytes))
+    raw_ts = data.get("timestamps", [])
+    words = [
+        {"word": item["text"], "start": round(item["start"], 3), "end": round(item["end"], 3)}
+        for item in raw_ts
+        if item.get("text", "").strip()
+    ]
+    if not words:
+        return samples, sr, approx_words(text, len(samples) / sr), True
+    return samples, sr, words, False
+
+
 def tts_elevenlabs(text, voice, model, speed):
     import requests
 
@@ -236,8 +297,8 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("script", nargs="?", help="arquivo .txt com o roteiro (ou '-' para stdin)")
     ap.add_argument("-o", "--out", default="public/audio/narration", help="prefixo de saída (sem extensão)")
-    ap.add_argument("--provider", default="kokoro", choices=["kokoro", "elevenlabs", "openai", "azure"])
-    ap.add_argument("--voice", default=None, help="kokoro: pf_dora | pm_alex | pm_santa | af_heart ...")
+    ap.add_argument("--provider", default="kokoro", choices=["kokoro", "dirce", "elevenlabs", "openai", "azure"])
+    ap.add_argument("--voice", default=None, help="kokoro/dirce: pf_dora | pm_alex | pm_santa | af_heart ...")
     ap.add_argument("--lang", default="pt-br", help="kokoro: pt-br, en-us, es ...")
     ap.add_argument("--speed", type=float, default=0.92, help="0.85-0.95 soa calmo; 1.0 é neutro")
     ap.add_argument("--model", default=None)
@@ -269,8 +330,24 @@ def main():
     if unknown:
         print(f"revise a pronúncia (adicione ao léxico se soar errado): {', '.join(unknown)}", file=sys.stderr)
 
-    if a.provider == "kokoro":
-        samples, sr, words, approx = tts_kokoro(text, a.voice or ("pf_dora" if pt else "af_heart"), a.lang, a.speed)
+    if a.provider == "dirce":
+        samples, sr, words, approx = tts_dirce(text, a.voice, a.lang, a.speed)
+    elif a.provider == "kokoro":
+        dirce_url = os.environ.get("DIRCE_TTS_URL", "http://127.0.0.1:8880").rstrip("/")
+        import requests
+
+        use_dirce = False
+        try:
+            if requests.get(f"{dirce_url}/health", timeout=0.8).status_code == 200:
+                use_dirce = True
+        except Exception:
+            pass
+
+        if use_dirce:
+            print(f"Conectado ao motor Kokoro do Dirce_Book_Server ({dirce_url})...", file=sys.stderr)
+            samples, sr, words, approx = tts_dirce(text, a.voice, a.lang, a.speed, base_url=dirce_url)
+        else:
+            samples, sr, words, approx = tts_kokoro(text, a.voice or ("pf_dora" if pt else "af_heart"), a.lang, a.speed)
     elif a.provider == "elevenlabs":
         samples, sr, words, approx = tts_elevenlabs(text, a.voice, a.model, a.speed)
     elif a.provider == "openai":
